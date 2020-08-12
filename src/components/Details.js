@@ -3,8 +3,8 @@ import { navigate } from "@reach/router";
 import pet from "@frontendmasters/pet";
 
 import Caraousel from "./Carousel";
-import ErrorBoundaries from "./ErrorBoundaries";
-import ThemeContext from "./ThemeContext";
+import ErrorBoundaries from "../ErrorBoundaries";
+import ThemeContext from "../ThemeContext";
 import Modal from "./Modal";
 
 class Details extends Component {
