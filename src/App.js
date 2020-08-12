@@ -5,6 +5,7 @@ import Pet from "./Pet";
 import SearchParams from "./SearchParams";
 import Details from "./Details";
 import ThemeContext from "./ThemeContext";
+import Navbar from "./Navbar";
 
 const App = () => {
   //hook usage
@@ -13,9 +14,10 @@ const App = () => {
     <React.StrictMode>
       {/* <ThemeContext.Provider use={themeHook}> */}
       <div>
-        <header>
+        <Navbar />
+        {/* <header>
           <Link to="/">Adopt me</Link>
-        </header>
+        </header> */}
         <Router>
           <SearchParams path="/" />
           <Details path="/details/:id" />
