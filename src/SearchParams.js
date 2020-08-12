@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import pet, { ANIMALS } from "@frontendmasters/pet";
 import Results from "./Results";
 import useDropdown from "./useDropdown";
+import ThemeContext from "./ThemeContext";
 
 const SearchParams = () => {
-  //   const location = "Seattle, WA";
   const [location, setLocation] = useState("Seattle, WA");
-  //   const [animal, setAnimal] = useState("Dog");
-  //   const [breed, setBreed] = useState("");
   const [breeds, setBreeds] = useState([]);
-
-  //Custom hooks
-  const [animal, AnimalDropDown] = useDropdown("Animal", "Dog", ANIMALS);
-  const [breed, BreedDropDown, setBreed] = useDropdown("Breed", "", breeds);
+  const [animal, AnimalDropDown] = useDropdown("Animal", "Dog", ANIMALS); //Custom hooks
+  const [breed, BreedDropDown, setBreed] = useDropdown("Breed", "", breeds); //Custom hooks
   const [pets, setPets] = useState([]);
+  // const [theme, setTheme] = useContext(ThemeContext);
 
   //get pet results based on selection criteria
   async function requestPets() {
@@ -49,6 +46,20 @@ const SearchParams = () => {
           />
           <AnimalDropDown />
           <BreedDropDown />
+          {/* <label htmlFor="theme">
+            Theme
+            <select
+              value={theme}
+              onClick={(e) => setTheme(e.target.value)}
+              onBlur={(e) => setTheme(e.target.value)}
+            >
+              <options value="Peru">Peru</options>
+              <options value="darkBlue">Dark Blue</options>
+              <options value="mediumOrchid">Orchid</options>
+              <options value="chartreuse">Chartreuse</options>
+            </select>
+          </label> */}
+          {/* <button type="submit" style={{ backgroundColor: theme }}> */}
           <button type="submit">Submit</button>
         </label>
       </form>
