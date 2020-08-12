@@ -1,15 +1,20 @@
 import React, { Component } from "react";
+import { navigate } from "@reach/router";
 import pet from "@frontendmasters/pet";
+
 import Caraousel from "./Carousel";
 import ErrorBoundaries from "./ErrorBoundaries";
+import ThemeContext from "./ThemeContext";
+import Modal from "./Modal";
 
 class Details extends Component {
-  state = { loading: true };
+  state = { loading: true, showModal: false };
 
   componentDidMount() {
     // throw new Error("something went wrong");
     pet.animal(this.props.id).then(({ animal }) => {
       this.setState({
+        url: animal.url, // url to go to adopt the pet
         name: animal.name,
         animal: animal.type,
         location: `${animal.contact.address.city}, ${animal.contact.address.state}`,
@@ -21,6 +26,11 @@ class Details extends Component {
     });
   }
 
+  toggleModal = () => this.setState({ showModal: !this.state.showModal });
+
+  //encouraged to use redirect component instead of this
+  adopt = () => navigate(this.state.url);
+
   render() {
     const {
       loading,
@@ -30,6 +40,7 @@ class Details extends Component {
       location,
       description,
       media,
+      showModal,
     } = this.state;
 
     return (
@@ -43,7 +54,25 @@ class Details extends Component {
               <h1>{name}</h1>
               <h2>{`${animal} - ${breed} - ${location}`}</h2>
               <p>{description}</p>
-              <button>Adopt {name}</button>
+              {showModal && (
+                <Modal>
+                  <div>
+                    <h1>Would you like to adopt {name}?</h1>
+                    <div className="buttons">
+                      <button onClick={this.adopt}>Yes</button>
+                      <button onClick={this.toggleModal}>No</button>
+                    </div>
+                  </div>
+                </Modal>
+              )}
+              <button onClick={this.toggleModal}>Adopt {name}</button>
+              {/* <ThemeContext.Consumer>
+                {(themeHook) => (
+                  <button style={{ backgroundColor: themeHook[0] }}>
+                    Adopt {name}
+                  </button>
+                )}
+              </ThemeContext.Consumer> */}
             </div>
           </div>
         )}
