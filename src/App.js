@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import { render } from "react-dom";
 import { Router, Link } from "@reach/router";
 import Pet from "./components/Pet";
 import SearchParams from "./components/SearchParams";
-import Details from "./components/Details";
 import ThemeContext from "./ThemeContext";
 import Navbar from "./components/Navbar";
+
+// lazy loading (aka code splitting)Details Component
+// Recommended for 30kb+ files or comps
+// import Details from "./components/Details";
+const Details = lazy(() => import("./components/Details"));
 
 const App = () => {
   //hook usage
@@ -18,10 +22,12 @@ const App = () => {
         {/* <header>
           <Link to="/">Adopt me</Link>
         </header> */}
-        <Router>
-          <SearchParams path="/" />
-          <Details path="/details/:id" />
-        </Router>
+        <Suspense fallback={<h1>Loading Lazy Comp...</h1>}>
+          <Router>
+            <SearchParams path="/" />
+            <Details path="/details/:id" />
+          </Router>
+        </Suspense>
       </div>
       {/* </ThemeContext.Provider> */}
     </React.StrictMode>
