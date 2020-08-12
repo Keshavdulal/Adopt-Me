@@ -23,3 +23,13 @@
 - Portals and Refs
 
 [![HitCount](http://hits.dwyl.com/keshavdulal/adopt-me.svg)](http://hits.dwyl.com/keshavdulal/adopt-me)
+
+<!--
+Part 2
+Hooks in Depth
+Emotion
+Code Splitting
+TypeScript
+Server Side Rendering
+Redux
+Testing -->
