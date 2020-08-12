@@ -1,13 +1,22 @@
+// styled component Navbar
 import React from "react";
 import { Link } from "@reach/router";
-import { css } from "@emotion/core";
+import { css, keyframes } from "@emotion/core";
+
+import Colors from "../Colors";
+
+const spin = keyframes`
+  to{
+    transform:rotate(360deg);
+  }`;
 
 const Navbar = () => {
   return (
     <header
       css={css`
-        background-color: #d9c148;
+        background-color: ${Colors.primary};
         padding: 15px;
+        margin-top: 10px;
         margin-bottom: 10px;
         border-radius: 10px;
       `}
@@ -16,6 +25,11 @@ const Navbar = () => {
       <span
         css={css`
           font-size: 60px;
+
+          &:hover {
+            animation: 1s ${spin} ease-in-out;
+            cursor: pointer;
+          }
         `}
         role="img"
         aria-label="logo"

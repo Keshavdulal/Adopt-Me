@@ -46,7 +46,9 @@ class Details extends Component {
     return (
       <div>
         {loading ? (
-          <h1>Loading Data</h1>
+          <div className="details">
+            <h1>Loading Data</h1>
+          </div>
         ) : (
           <div className="details">
             <Caraousel media={media} />
