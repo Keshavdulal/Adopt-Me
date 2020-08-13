@@ -1,31 +1,37 @@
-import React, { useState, useEffect, useContext } from "react";
-import pet, { ANIMALS } from "@frontendmasters/pet";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  FunctionComponent,
+} from "react";
+import { RouteComponentProps } from "@reach/router";
+import pet, { Animal, ANIMALS } from "@frontendmasters/pet";
 import Results from "./Results";
 import useDropdown from "./useDropdown";
-import ThemeContext from "./ThemeContext";
+import ThemeContext from "../ThemeContext";
 
-const SearchParams = () => {
+const SearchParams: FunctionComponent<RouteComponentProps> = () => {
   const [location, setLocation] = useState("Seattle, WA");
-  const [breeds, setBreeds] = useState([]);
-  const [animal, AnimalDropDown] = useDropdown("Animal", "Dog", ANIMALS); //Custom hooks
-  const [breed, BreedDropDown, setBreed] = useDropdown("Breed", "", breeds); //Custom hooks
-  const [pets, setPets] = useState([]);
+  const [breeds, setBreeds] = useState([] as string[]);
+  const [animal, AnimalDropDown] = useDropdown("Animal", "Dog", ANIMALS); // Custom hooks
+  const [breed, BreedDropDown, setBreed] = useDropdown("Breed", "", breeds); // Custom hooks
+  const [pets, setPets] = useState([] as Animal[]);
   // const [theme, setTheme] = useContext(ThemeContext);
 
-  //get pet results based on selection criteria
+  // get pet results based on selection criteria
   async function requestPets() {
     const { animals } = await pet.animals({ location, breed, type: animal });
     setPets(animals || []);
   }
 
   useEffect(() => {
-    setBreeds([]); //set array of breeds empty
-    setBreed(""); //set current breed empty
+    setBreeds([]); // set array of breeds empty
+    setBreed(""); // set current breed empty
     pet.breeds(animal).then(({ breeds: apiBreeds }) => {
       const breedString = apiBreeds.map(({ name }) => name);
       setBreeds(breedString);
     }, console.error);
-  }, [animal, setBreed, setBreeds]); //dependency array
+  }, [animal, setBreed, setBreeds]); // dependency array
 
   return (
     <div className="search-params">
