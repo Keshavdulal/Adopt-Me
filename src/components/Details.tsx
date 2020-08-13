@@ -1,34 +1,51 @@
 import React, { Component } from "react";
-import { navigate } from "@reach/router";
-import pet from "@frontendmasters/pet";
+import { navigate, RouteComponentProps } from "@reach/router";
+import pet, { Photo } from "@frontendmasters/pet";
 
 import Caraousel from "./Carousel";
 import ErrorBoundaries from "../ErrorBoundaries";
 import ThemeContext from "../ThemeContext";
 import Modal from "./Modal";
 
-class Details extends Component {
-  state = { loading: true, showModal: false };
+class Details extends Component<RouteComponentProps<{ id: string }>> {
+  public state = {
+    loading: true,
+    showModal: false,
+    name: "",
+    animal: "",
+    location: "",
+    description: "",
+    media: [] as Photo[],
+    url: "",
+    breed: "",
+  };
 
-  componentDidMount() {
-    // throw new Error("something went wrong");
-    pet.animal(this.props.id).then(({ animal }) => {
-      this.setState({
-        url: animal.url, // url to go to adopt the pet
-        name: animal.name,
-        animal: animal.type,
-        location: `${animal.contact.address.city}, ${animal.contact.address.state}`,
-        description: animal.description,
-        media: animal.photos,
-        breed: animal.breeds.primary,
-        loading: false,
-      });
-    });
+  public componentDidMount() {
+    if (!this.props.id) {
+      navigate("/");
+      return;
+    }
+
+    pet
+      .animal(+this.props.id)
+      .then(({ animal }) => {
+        this.setState({
+          url: animal.url, // url to go to adopt the pet
+          name: animal.name,
+          animal: animal.type,
+          location: `${animal.contact.address.city}, ${animal.contact.address.state}`,
+          description: animal.description,
+          media: animal.photos,
+          breed: animal.breeds.primary,
+          loading: false,
+        });
+      })
+      .catch((err: Error) => this.setState({ error: err }));
   }
 
   toggleModal = () => this.setState({ showModal: !this.state.showModal });
 
-  //encouraged to use redirect component instead of this
+  // Encouraged to use redirect component instead of this
   adopt = () => navigate(this.state.url);
 
   render() {
@@ -83,8 +100,10 @@ class Details extends Component {
   }
 }
 
-//HOC Element
-export default function detailsWithErrorBoundaries(props) {
+// HOC Element
+export default function detailsWithErrorBoundaries(
+  props: RouteComponentProps<{ id: string }>
+) {
   return (
     <ErrorBoundaries>
       {/* be cautious with spread operator - decreases readability */}

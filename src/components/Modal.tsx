@@ -18,7 +18,7 @@ const Modal: FunctionComponent = ({ children }) => {
       return;
     }
 
-    //append the newly created div to our modal
+    // append the newly created div to our modal
     modalRoot.appendChild(elRef.current);
 
     // at the end remove the "newly" created div using a cleanup func when the modal gets closed
@@ -33,4 +33,4 @@ const Modal: FunctionComponent = ({ children }) => {
 
 export default Modal;
 
-//ps: not trapping focus on this modal here
+// ps: not trapping focus on this modal here

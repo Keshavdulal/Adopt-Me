@@ -1,5 +1,5 @@
 // styled component Navbar
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Link } from "@reach/router";
 import { css, keyframes } from "@emotion/core";
 

@@ -4,7 +4,7 @@ import { Router, Link } from "@reach/router";
 import Pet from "./components/Pet";
 import SearchParams from "./components/SearchParams";
 import ThemeContext from "./ThemeContext";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar.js";
 
 // lazy loading (aka code splitting)Details Component
 // Recommended for 30kb+ files or comps
@@ -12,7 +12,7 @@ import Navbar from "./components/Navbar";
 const Details = lazy(() => import("./components/Details"));
 
 const App = () => {
-  //hook usage
+  // hook usage
   // const themeHook = useState("peru");
   return (
     <React.StrictMode>
