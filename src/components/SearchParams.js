@@ -6,21 +6,29 @@ import React, {
 } from "react";
 import { RouteComponentProps } from "@reach/router";
 import pet, { Animal, ANIMALS } from "@frontendmasters/pet";
+import { connect } from "react-redux";
+
 import Results from "./Results";
 import useDropdown from "./useDropdown";
-import ThemeContext from "../ThemeContext";
+// import ThemeContext from "../ThemeContext";
+import changeTheme from "../actionCreators/changeTheme";
+import changeLocation from "../actionCreators/changeLocation";
 
-const SearchParams: FunctionComponent<RouteComponentProps> = () => {
-  const [location, setLocation] = useState("Seattle, WA");
-  const [breeds, setBreeds] = useState([] as string[]);
+const SearchParams = (props) => {
+  // const [location, setLocation] = useState("Seattle, WA"); // remove when using Redux
+  const [breeds, setBreeds] = useState([]);
   const [animal, AnimalDropDown] = useDropdown("Animal", "Dog", ANIMALS); // Custom hooks
   const [breed, BreedDropDown, setBreed] = useDropdown("Breed", "", breeds); // Custom hooks
-  const [pets, setPets] = useState([] as Animal[]);
+  const [pets, setPets] = useState([]);
   // const [theme, setTheme] = useContext(ThemeContext);
 
   // get pet results based on selection criteria
   async function requestPets() {
-    const { animals } = await pet.animals({ location, breed, type: animal });
+    const { animals } = await pet.animals({
+      location: props.location,
+      breed,
+      type: animal,
+    });
     setPets(animals || []);
   }
 
@@ -46,9 +54,10 @@ const SearchParams: FunctionComponent<RouteComponentProps> = () => {
           <input
             id="location"
             type="text"
-            value={location}
+            value={props.location}
             placeholder="location"
-            onChange={(e) => setLocation(e.target.value)}
+            // onChange={(e) => setLocation(e.target.value)}
+            onChange={(e) => props.updateLocation(e.target.value)}
           />
           <AnimalDropDown />
           <BreedDropDown />
@@ -74,4 +83,15 @@ const SearchParams: FunctionComponent<RouteComponentProps> = () => {
   );
 };
 
-export default SearchParams;
+// pull Read-Data from Redux and hand to comp
+const mapStateToProps = ({ theme, location }) => ({ theme, location });
+
+// send actions to Redux to write or update state
+const mapDispatchToProps = (dispatch) => ({
+  setTheme: (theme) => dispatch(changeTheme(theme)),
+  updateLocation: (location) => dispatch(changeLocation(location)),
+});
+
+// connect returns a function that invokes on SearchParams
+// eventually will be able to use connect as a decorator 🤷‍♂️
+export default connect(mapStateToProps, mapDispatchToProps)(SearchParams);
