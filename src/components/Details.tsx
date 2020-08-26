@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { navigate, RouteComponentProps } from "@reach/router";
 import pet, { Photo } from "@frontendmasters/pet";
+import { connect } from "react-redux";
 
 import Caraousel from "./Carousel";
 import ErrorBoundaries from "../ErrorBoundaries";
-import ThemeContext from "../ThemeContext";
+// import ThemeContext from "../ThemeContext";
 import Modal from "./Modal";
 
 class Details extends Component<RouteComponentProps<{ id: string }>> {
@@ -84,7 +85,12 @@ class Details extends Component<RouteComponentProps<{ id: string }>> {
                   </div>
                 </Modal>
               )}
-              <button onClick={this.toggleModal}>Adopt {name}</button>
+              <button
+                style={{ backgroundColor: this.props.theme }}
+                onClick={this.toggleModal}
+              >
+                Adopt {name}
+              </button>
               {/* <ThemeContext.Consumer>
                 {(themeHook) => (
                   <button style={{ backgroundColor: themeHook[0] }}>
@@ -100,6 +106,10 @@ class Details extends Component<RouteComponentProps<{ id: string }>> {
   }
 }
 
+const mapStateToProps = ({ theme }) => ({ theme });
+
+const WrappedDetails = connect(mapStateToProps)(Details);
+
 // HOC Element
 export default function detailsWithErrorBoundaries(
   props: RouteComponentProps<{ id: string }>
@@ -107,7 +117,7 @@ export default function detailsWithErrorBoundaries(
   return (
     <ErrorBoundaries>
       {/* be cautious with spread operator - decreases readability */}
-      <Details {...props} />
+      <WrappedDetails {...props} />
     </ErrorBoundaries>
   );
 }
