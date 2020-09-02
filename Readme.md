@@ -1,5 +1,27 @@
 # Adopt Me [![npm version](https://badge.fury.io/js/react-dom.svg)](https://badge.fury.io/js/react-dom)
 
+## Installation Instructions
+
+```
+git clone git@github.com:Keshavdulal/Adopt-Me.git
+```
+
+```
+cd Adopt-me
+```
+
+```
+npm install
+```
+
+```
+npm run dev
+```
+
+Open http://localhost:1234
+
+---
+
 ## A React App to find pets using [Petfinder's API](https://www.petfinder.com/developers/)
 
 ### Part of [A Complete Intro to React v5](https://frontendmasters.com/courses/complete-react-v5) course by [Brian Holt](https://github.com/btholt) at Frontend Masters.
