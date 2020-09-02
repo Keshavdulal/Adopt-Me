@@ -24,7 +24,7 @@ Open http://localhost:1234
 
 ## A React App to find pets using [Petfinder's API](https://www.petfinder.com/developers/)
 
-### Part of [A Complete Intro to React v5](https://frontendmasters.com/courses/complete-react-v5) course by [Brian Holt](https://github.com/btholt) at Frontend Masters.
+<!-- ### Part of [A Complete Intro to React v5](https://frontendmasters.com/courses/complete-react-v5) course by [Brian Holt](https://github.com/btholt) at Frontend Masters. -->
 
 | Dependencies    | name         |
 | --------------- | ------------ |
@@ -42,16 +42,13 @@ Open http://localhost:1234
 - Class Components
 - Error Boundaries
 - Context
-- Portals and Refs
+- Portals and Refs,
+- Hooks in Depth
+<!-- - Emotion -->
+- Code Splitting
+- TypeScript
+<!-- - Server Side Rendering -->
+- Redux
+<!-- - Testing -->
 
 [![HitCount](http://hits.dwyl.com/keshavdulal/adopt-me.svg)](http://hits.dwyl.com/keshavdulal/adopt-me)
-
-<!--
-Part 2
-Hooks in Depth
-Emotion
-Code Splitting
-TypeScript
-Server Side Rendering
-Redux
-Testing -->
